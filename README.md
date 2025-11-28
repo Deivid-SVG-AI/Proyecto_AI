@@ -9,15 +9,27 @@
 
 ## 📋 Descripción del Proyecto
 
-Este proyecto implementa un **sistema de clasificación automática de documentos** utilizando técnicas de **Procesamiento de Lenguaje Natural (NLP)** y **Machine Learning**. El sistema es capaz de clasificar documentos escaneados o digitalizados en tres categorías principales:
+Este proyecto implementa un **sistema de clasificación automática de documentos** utilizando técnicas de **Procesamiento de Lenguaje Natural (NLP)** y **Machine Learning**. El sistema es capaz de clasificar documentos escaneados (archivos .tif) en **16 categorías**:
 
-1. **Emails** (correos electrónicos)
-2. **Resumes** (currículums vitae)
-3. **Scientific Publications** (publicaciones científicas)
+1. **Advertisement** (publicidad)
+2. **Budget** (presupuestos)
+3. **Email** (correos electrónicos)
+4. **File Folder** (carpetas de archivos)
+5. **Form** (formularios)
+6. **Handwritten** (documentos manuscritos)
+7. **Invoice** (facturas)
+8. **Letter** (cartas)
+9. **Memo** (memorandos)
+10. **News Article** (artículos de noticias)
+11. **Presentation** (presentaciones)
+12. **Questionnaire** (cuestionarios)
+13. **Resume** (currículums vitae)
+14. **Scientific Publication** (publicaciones científicas)
+15. **Scientific Report** (reportes científicos)
+16. **Specification** (especificaciones técnicas)
 
 El pipeline completo incluye:
-- Conversión de formatos de imagen (TIF/PDF → PNG)
-- Extracción de texto mediante OCR (Tesseract)
+- Extracción de texto mediante OCR (Tesseract) directamente desde archivos .tif
 - Preprocesamiento avanzado de texto con NLP
 - Análisis exploratorio exhaustivo de datos
 - Entrenamiento y evaluación de múltiples modelos de ML
@@ -48,9 +60,8 @@ El pipeline completo incluye:
 ## 🛠️ Tecnologías y Librerías Utilizadas
 
 ### Procesamiento de Imágenes y OCR
-- **PIL (Pillow)**: Manipulación de imágenes
-- **Tesseract OCR**: Extracción de texto de imágenes
-- **pdf2image**: Conversión de PDF a imágenes
+- **PIL (Pillow)**: Carga y manipulación de imágenes TIF
+- **Tesseract OCR**: Extracción de texto de imágenes (soporta .tif nativamente)
 
 ### Procesamiento de Lenguaje Natural
 - **NLTK**: Tokenización, lemmatización, stopwords
@@ -84,12 +95,23 @@ Proyecto_AI/
 ├── README.md                           # Este archivo
 │
 ├── datasets/
-│   ├── document-classification-dataset/
-│   │   ├── email/                      # Imágenes de emails
-│   │   ├── resume/                     # Imágenes de CVs
-│   │   └── scientific_publication/     # Imágenes de papers
-│   │
-│   └── document-classification-dataset-xl/   # Dataset extendido (opcional)
+│   └── document-classification-dataset-xl/   # Dataset con 16 clases
+│       ├── advertisement/              # Publicidades
+│       ├── budget/                     # Presupuestos
+│       ├── email/                      # Emails
+│       ├── file_folder/                # Carpetas
+│       ├── form/                       # Formularios
+│       ├── handwritten/                # Manuscritos
+│       ├── invoice/                    # Facturas
+│       ├── letter/                     # Cartas
+│       ├── memo/                       # Memorandos
+│       ├── news_article/               # Artículos de noticias
+│       ├── presentation/               # Presentaciones
+│       ├── questionnaire/              # Cuestionarios
+│       ├── resume/                     # CVs
+│       ├── scientific_publication/     # Publicaciones científicas
+│       ├── scientific_report/          # Reportes científicos
+│       └── specification/              # Especificaciones técnicas
 │
 └── models/                             # Modelos entrenados (generado)
     ├── model_latest.pkl                # Mejor modelo entrenado
@@ -138,7 +160,7 @@ conda activate proyecto_ai
 pip install pandas numpy matplotlib seaborn
 pip install nltk pytesseract pillow
 pip install scikit-learn xgboost lightgbm
-pip install wordcloud pdf2image imbalanced-learn
+pip install wordcloud imbalanced-learn
 ```
 
 ### 3. Descargar Recursos de NLTK
@@ -162,44 +184,18 @@ pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tessera
 
 ## 📊 Pipeline del Proyecto
 
-### PASO 1: Conversión de Formatos de Imagen
-
-#### 1a. Conversión TIF → PNG
-```python
-convert_tif_to_png(
-    input_folder=r"datasets\mi_carpeta_tif",
-    output_folder=r"datasets\mi_carpeta_png"
-)
-```
-
-**Justificación:**
-- PNG es formato sin pérdida de calidad
-- Amplia compatibilidad con librerías de procesamiento
-- Reduce tamaño comparado con TIF sin comprimir
-
-#### 1b. Conversión PDF → PNG
-```python
-convert_pdf_to_png(
-    input_folder=r"datasets\mi_carpeta_pdf",
-    output_folder=r"datasets\mi_carpeta_png",
-    dpi=200
-)
-```
-
-**Justificación del DPI:**
-- 200 DPI: Balance óptimo entre calidad OCR y tamaño de archivo
-- Tesseract funciona eficientemente entre 150-300 DPI
-- DPI muy alto (>300) aumenta tiempo sin mejora significativa
-
----
-
-### PASO 2: Extracción de Texto con OCR
+### PASO 1: Extracción de Texto con OCR
 
 **Proceso:**
-1. Cargar imagen con PIL
+1. Cargar imagen TIF directamente con PIL (Tesseract soporta .tif nativamente)
 2. Aplicar Tesseract OCR para extraer texto
 3. Preprocesar texto con NLP
 4. Almacenar en DataFrame estructurado
+
+**Ventaja de usar archivos TIF directamente:**
+- Tesseract OCR puede procesar archivos .tif sin necesidad de conversión
+- Ahorra tiempo de procesamiento y espacio en disco
+- Mantiene la calidad original de la imagen
 
 **Preprocesamiento de Texto:**
 
@@ -221,9 +217,9 @@ La función `preprocess_data()` realiza las siguientes transformaciones:
 
 ---
 
-### PASO 3: Análisis Exploratorio de Datos (EDA)
+### PASO 2: Análisis Exploratorio de Datos (EDA)
 
-#### 3.1 Análisis de Balance de Clases
+#### 2.1 Análisis de Balance de Clases
 
 **Métricas calculadas:**
 - Conteo absoluto y porcentaje por clase
@@ -251,11 +247,12 @@ La función `preprocess_data()` realiza las siguientes transformaciones:
 - Violin plot para visualizar densidad
 
 **Insight esperado:** 
-- Emails tienden a ser más cortos
-- Papers científicos suelen ser más largos
-- CVs tienen longitud intermedia
+- Diferentes tipos de documentos tienen longitudes características
+- Emails y memos tienden a ser más cortos
+- Publicaciones científicas y reportes tienden a ser más largos
+- Formularios y facturas tienen longitud variable
 
-#### 3.3 Análisis de Vocabulario
+#### 2.3 Análisis de Vocabulario
 
 **Funciones:**
 - Identificación de palabras más frecuentes por clase
@@ -264,12 +261,12 @@ La función `preprocess_data()` realiza las siguientes transformaciones:
 
 **Utilidad:**
 - Validar que OCR funciona correctamente
-- Identificar palabras clave características de cada clase
+- Identificar palabras clave características de cada clase (ej: "invoice" en facturas, "research" en papers)
 - Detectar posibles problemas (palabras incorrectas por OCR deficiente)
 
 ---
 
-### PASO 4: División Estratificada de Datos
+### PASO 3: División Estratificada de Datos
 
 **División:** 70% Train - 20% Validation - 10% Test
 
@@ -279,8 +276,8 @@ La función `preprocess_data()` realiza las siguientes transformaciones:
 - **10% Test**: Evaluación final con datos nunca vistos
 
 **Estratificación:**
-- Mantiene la proporción de clases en cada conjunto
-- Crítico para datasets desbalanceados
+- Mantiene la proporción de las 16 clases en cada conjunto
+- Crítico para datasets con múltiples clases
 - Asegura representatividad estadística
 
 **Proceso de división:**
@@ -298,7 +295,7 @@ X_train, X_val, y_train, y_val = train_test_split(
 
 ---
 
-### PASO 5: Feature Engineering - TF-IDF
+### PASO 4: Feature Engineering - TF-IDF
 
 **¿Qué es TF-IDF?**
 - **TF (Term Frequency)**: Frecuencia de término en documento
@@ -306,7 +303,7 @@ X_train, X_val, y_train, y_val = train_test_split(
 - **TF-IDF = TF × IDF**: Resalta palabras importantes pero no comunes
 
 **Justificación de TF-IDF:**
-1. Eficaz para clasificación de texto
+1. Eficaz para clasificación de texto con múltiples clases
 2. Reduce peso de palabras comunes automáticamente
 3. Sparse pero eficiente en memoria
 4. Baseline sólido, estado del arte para muchos problemas NLP
@@ -334,7 +331,7 @@ TfidfVectorizer(
 
 ---
 
-### PASO 6: Análisis de PCA
+### PASO 5: Análisis de PCA
 
 **Objetivo:** Determinar si la reducción de dimensionalidad es beneficiosa
 
@@ -344,10 +341,10 @@ TfidfVectorizer(
 3. Necesidad de reducir overfitting
 4. Visualización de datos
 
-**Desventajas de PCA para NLP:**
+**Desventajas de PCA para NLP con múltiples clases:**
 1. **Pérdida de interpretabilidad**: Componentes principales no son palabras
 2. **TF-IDF es sparse**: PCA genera matrices densas (más memoria)
-3. **Puede perder información**: Features raros pero discriminativos
+3. **Puede perder información**: Features raros pero discriminativos importantes para distinguir entre 16 clases
 
 **Decisión tomada:**
 ```python
@@ -364,7 +361,7 @@ else:
 
 ---
 
-### PASO 7: Entrenamiento de Modelos
+### PASO 6: Entrenamiento de Modelos
 
 **Modelos seleccionados y justificación:**
 
@@ -442,6 +439,11 @@ else:
 
 **Configuración:** 5-Fold Stratified Cross-Validation
 
+**¿Por qué Stratified con 16 clases?**
+- Mantiene las proporciones de las 16 clases en cada fold
+- Crítico para problemas multi-clase
+- Previene evaluación sesgada
+
 **Proceso:**
 1. Dividir datos de entrenamiento en 5 partes (folds)
 2. Para cada fold:
@@ -459,7 +461,7 @@ else:
 - Cross-validation mean ± std
 - Training accuracy
 - Validation accuracy
-- F1-score, Precision, Recall
+- F1-score, Precision, Recall (weighted para 16 clases)
 - Diferencia train-val (indicador de overfitting)
 
 **Detección de Overfitting:**
@@ -476,7 +478,7 @@ Else:
 
 ### PASO 9: Evaluación Final en Test Set
 
-**Métricas de evaluación:**
+**Métricas de evaluación para 16 clases:**
 
 #### 1. Accuracy
 - **Definición:** Porcentaje de predicciones correctas
