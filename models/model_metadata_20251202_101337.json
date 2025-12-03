@@ -1,0 +1,26 @@
+{
+    "model_name": "Logistic Regression",
+    "timestamp": "20251202_101337",
+    "metrics": {
+        "test_accuracy": 1.0,
+        "test_precision": 1.0,
+        "test_recall": 1.0,
+        "test_f1_score": 1.0
+    },
+    "model_file": "logistic_regression_20251202_101337.pkl",
+    "vectorizer_file": "tfidf_vectorizer_20251202_101337.pkl",
+    "tfidf_config": {
+        "ngram_range": [
+            1,
+            2
+        ],
+        "max_features": 5000,
+        "min_df": 2,
+        "max_df": 0.95
+    },
+    "class_labels": {
+        "email": 0,
+        "resume": 1,
+        "scientific_publication": 2
+    }
+}
