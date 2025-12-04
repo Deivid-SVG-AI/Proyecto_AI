@@ -1,14 +1,14 @@
 {
     "model_name": "Linear SVM",
-    "timestamp": "20251202_131908",
+    "timestamp": "20251203_165016",
     "metrics": {
-        "test_accuracy": 0.6273458445040214,
-        "test_precision": 0.6373196518099764,
-        "test_recall": 0.6273458445040214,
-        "test_f1_score": 0.6260826326965777
+        "test_accuracy": 0.6472148541114059,
+        "test_precision": 0.6543983796919065,
+        "test_recall": 0.6472148541114059,
+        "test_f1_score": 0.6433001617003651
     },
-    "model_file": "linear_svm_20251202_131908.pkl",
-    "vectorizer_file": "tfidf_vectorizer_20251202_131908.pkl",
+    "model_file": "linear_svm_20251203_165016.pkl",
+    "vectorizer_file": "tfidf_vectorizer_20251203_165016.pkl",
     "tfidf_config": {
         "ngram_range": [
             1,

@@ -1,0 +1,39 @@
+{
+    "model_name": "Logistic Regression",
+    "timestamp": "20251203_135243",
+    "metrics": {
+        "test_accuracy": 0.6175,
+        "test_precision": 0.6648343180616909,
+        "test_recall": 0.6175,
+        "test_f1_score": 0.6284814938742183
+    },
+    "model_file": "logistic_regression_20251203_135243.pkl",
+    "vectorizer_file": "tfidf_vectorizer_20251203_135243.pkl",
+    "tfidf_config": {
+        "ngram_range": [
+            1,
+            2
+        ],
+        "max_features": 5000,
+        "min_df": 2,
+        "max_df": 0.95
+    },
+    "class_labels": {
+        "advertisement": 0,
+        "budget": 1,
+        "email": 2,
+        "file_folder": 3,
+        "form": 4,
+        "handwritten": 5,
+        "invoice": 6,
+        "letter": 7,
+        "memo": 8,
+        "news_article": 9,
+        "presentation": 10,
+        "questionnaire": 11,
+        "resume": 12,
+        "scientific_publication": 13,
+        "scientific_report": 14,
+        "specification": 15
+    }
+}
