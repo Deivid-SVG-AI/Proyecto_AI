@@ -1,0 +1,41 @@
+{
+    "model_name": "Linear SVM",
+    "timestamp": "20251204_140938",
+    "metrics": {
+        "test_accuracy": 0.6710875331564987,
+        "test_precision": 0.6839819419410873,
+        "test_recall": 0.6710875331564987,
+        "test_f1_score": 0.6672802839613051
+    },
+    "model_file": "linear_svm_20251204_140938.pkl",
+    "vectorizer_file": "tfidf_vectorizer_20251204_140938.pkl",
+    "tfidf_config": {
+        "ngram_range": [
+            1,
+            2
+        ],
+        "max_features": 3000,
+        "min_df": 3,
+        "max_df": 0.85
+    },
+    "class_labels": {
+        "advertisement": 0,
+        "budget": 1,
+        "email": 2,
+        "file_folder": 3,
+        "form": 4,
+        "handwritten": 5,
+        "invoice": 6,
+        "letter": 7,
+        "memo": 8,
+        "news_article": 9,
+        "presentation": 10,
+        "questionnaire": 11,
+        "resume": 12,
+        "scientific_publication": 13,
+        "scientific_report": 14,
+        "specification": 15
+    },
+    "model_type": "regularized",
+    "features_reduced": true
+}

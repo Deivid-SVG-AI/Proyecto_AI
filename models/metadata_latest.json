@@ -1,22 +1,22 @@
 {
     "model_name": "Linear SVM",
-    "timestamp": "20251203_165016",
+    "timestamp": "20251204_140938",
     "metrics": {
-        "test_accuracy": 0.6472148541114059,
-        "test_precision": 0.6543983796919065,
-        "test_recall": 0.6472148541114059,
-        "test_f1_score": 0.6433001617003651
+        "test_accuracy": 0.6710875331564987,
+        "test_precision": 0.6839819419410873,
+        "test_recall": 0.6710875331564987,
+        "test_f1_score": 0.6672802839613051
     },
-    "model_file": "linear_svm_20251203_165016.pkl",
-    "vectorizer_file": "tfidf_vectorizer_20251203_165016.pkl",
+    "model_file": "linear_svm_20251204_140938.pkl",
+    "vectorizer_file": "tfidf_vectorizer_20251204_140938.pkl",
     "tfidf_config": {
         "ngram_range": [
             1,
             2
         ],
-        "max_features": 5000,
-        "min_df": 2,
-        "max_df": 0.95
+        "max_features": 3000,
+        "min_df": 3,
+        "max_df": 0.85
     },
     "class_labels": {
         "advertisement": 0,
@@ -35,5 +35,7 @@
         "scientific_publication": 13,
         "scientific_report": 14,
         "specification": 15
-    }
+    },
+    "model_type": "regularized",
+    "features_reduced": true
 }
